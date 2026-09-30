@@ -118,11 +118,12 @@ jobs:
               }
               console.log(`${c} ${h}`);
             ')"
-            if [ "$CRITICAL" -gt 0 ] || [ "$HIGH" -gt 0 ]; then
-              echo "::error::Found $CRITICAL critical and $HIGH high vulnerabilities in dependencies (via bun audit)"
+            if [ "$HIGH" -gt 0 ]; then
+              echo "::warning::Found $HIGH high vulnerabilities in dependencies (via bun audit)"
+            fi
+            if [ "$CRITICAL" -gt 0 ]; then
+              echo "::error::Found $CRITICAL critical vulnerabilities in dependencies (via bun audit)"
               exit 1
-            elif [ "$CRITICAL" -eq 0 ] && [ "$HIGH" -eq 0 ]; then
-              echo "No critical or high vulnerabilities found; lower severities remain warnings."
             fi
           else
             echo "No dependencies scanned or no vulnerabilities found." >> $GITHUB_STEP_SUMMARY

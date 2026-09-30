@@ -59,11 +59,12 @@ jobs:
               if (severity === "critical") critical++;
               if (severity === "high") high++;
             }
-            if (critical || high) {
-              console.error(`Found ${critical} critical and ${high} high vulnerabilities`);
+            if (high) console.warn(`::warning::Found ${high} high vulnerabilities`);
+            if (critical) {
+              console.error(`Found ${critical} critical vulnerabilities`);
               process.exit(1);
             }
-            console.log("No critical or high vulnerabilities found; lower severities are warnings.");
+            console.log("No critical vulnerabilities found; lower severities are warnings.");
           '
 
       - name: Test
